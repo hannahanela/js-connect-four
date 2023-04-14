@@ -22,22 +22,22 @@ function makeBoard() {
     let row = Array(WIDTH).fill(null);
     board.push(row);
   }
-  console.log(board);
+  console.log('makeBoard', board);
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  const htmlBoard = document.getElementById('board');
 
-  // TODO: add comment for this code
-  var top = document.createElement("tr");
+  // creates HTML table row at top of board for player UI.
+  const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
 
-  // TODO: add comment for this code
+  // creates HTML table cells for each column of board.
   for (let x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+    const headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
@@ -47,20 +47,18 @@ function makeHtmlBoard() {
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
   for (let y = 0; y < HEIGHT; y++) {
-    // TODO: Create a table row element and assign to a "row" variable
+    const row = document.createElement("tr");
 
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: Create a table cell element and assign to a "cell" variable
-
-      // TODO: add an id, y-x, to the above table cell element
-      // you'll use this later, so make sure you use y-x
-
-      // TODO: append the table cell to the table row
-
+      const cell = document.createElement("td");
+      cell.setAttribute("id", y + '-' + x);
+      row.append(cell);
     }
-    // TODO: append the row to the html board
 
+    htmlBoard.append(row);
   }
+
+  console.log('makeHtmlBoard', htmlBoard);
 }
 
 /** findSpotForCol: given column x, return bottom empty y (null if filled) */
