@@ -75,14 +75,17 @@ function placeInTable(y, x) {
   piece.setAttribute("class", "piece" + ' p' + currPlayer);
   const cell = document.getElementById(`${y}-${x}`);
   cell.append(piece);
-  
+
   console.log('piece', piece);
+  console.log('currPlayer=', currPlayer);
+
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
   // TODO: pop up alert message
+  console.log("endGame!");
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -98,8 +101,10 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
+  board[y][x] = currPlayer;
   placeInTable(y, x);
+
+  console.log('handleClick', board);
 
   // check for win
   if (checkForWin()) {
@@ -107,10 +112,12 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  if (board.every(cell => cell === 1 || cell === 2)) {
+    return endGame('Tie!');
+  }
 
   // switch players
-  // TODO: switch currPlayer 1 <-> 2
+  currPlayer = (currPlayer === 1) ? 2 : 1;
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
